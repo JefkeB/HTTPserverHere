@@ -38,6 +38,7 @@
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.ServerState_toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.Start_button = new System.Windows.Forms.Button();
             this.Stop_button = new System.Windows.Forms.Button();
             this.ServerPort_label = new System.Windows.Forms.Label();
@@ -45,9 +46,12 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.ServerPath_Label = new System.Windows.Forms.Label();
             this.ServerPath_textBox = new System.Windows.Forms.TextBox();
-            this.ServerState_toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.tray_contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.tray_contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -96,14 +100,14 @@
             // addToolStripMenuItem
             // 
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.addToolStripMenuItem.Text = "Add";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -116,6 +120,14 @@
             this.statusStrip.Size = new System.Drawing.Size(516, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
+            // 
+            // ServerState_toolStripStatusLabel
+            // 
+            this.ServerState_toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerState_toolStripStatusLabel.ForeColor = System.Drawing.Color.DarkOrange;
+            this.ServerState_toolStripStatusLabel.Name = "ServerState_toolStripStatusLabel";
+            this.ServerState_toolStripStatusLabel.Size = new System.Drawing.Size(71, 17);
+            this.ServerState_toolStripStatusLabel.Text = "server idle";
             // 
             // Start_button
             // 
@@ -174,13 +186,26 @@
             this.ServerPath_textBox.Size = new System.Drawing.Size(416, 20);
             this.ServerPath_textBox.TabIndex = 7;
             // 
-            // ServerState_toolStripStatusLabel
+            // notifyIcon
             // 
-            this.ServerState_toolStripStatusLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ServerState_toolStripStatusLabel.ForeColor = System.Drawing.Color.DarkOrange;
-            this.ServerState_toolStripStatusLabel.Name = "ServerState_toolStripStatusLabel";
-            this.ServerState_toolStripStatusLabel.Size = new System.Drawing.Size(71, 17);
-            this.ServerState_toolStripStatusLabel.Text = "server idle";
+            this.notifyIcon.ContextMenuStrip = this.tray_contextMenuStrip;
+            this.notifyIcon.Text = "HTTPserverHere";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // tray_contextMenuStrip
+            // 
+            this.tray_contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeToolStripMenuItem});
+            this.tray_contextMenuStrip.Name = "tray_contextMenuStrip";
+            this.tray_contextMenuStrip.Size = new System.Drawing.Size(104, 26);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // Main_Form
             // 
@@ -198,13 +223,16 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip;
             this.Name = "Main_Form";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HTTPserverHere";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_Form_FormClosing);
+            this.Shown += new System.EventHandler(this.Main_Form_Shown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.tray_contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,6 +256,9 @@
         private System.Windows.Forms.Label ServerPath_Label;
         private System.Windows.Forms.TextBox ServerPath_textBox;
         private System.Windows.Forms.ToolStripStatusLabel ServerState_toolStripStatusLabel;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip tray_contextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }
 

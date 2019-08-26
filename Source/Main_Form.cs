@@ -12,6 +12,7 @@ namespace HTTPserverHere
     public partial class Main_Form : Form
     {
         SimpleHTTPServer server = null;
+        private bool mustClose = false;
 
         //
         //
@@ -20,12 +21,18 @@ namespace HTTPserverHere
         {
             InitializeComponent();
 
+            // setup trayicon
+            notifyIcon.Visible = true;
+            notifyIcon.BalloonTipText = " ";
+            notifyIcon.Icon = new Icon(this.Icon, 40, 40);
+            notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+
+
             // dump command line options for debugging
             foreach (string arg in CommandLine.args)
             {
                 Console.WriteLine(arg);
             }
-
 
             // started by command line
             if(CommandLine.args.Length > 0)
@@ -41,6 +48,7 @@ namespace HTTPserverHere
         //
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            mustClose = true;
             Close();
         }
 
@@ -50,7 +58,17 @@ namespace HTTPserverHere
         //
         private void Main_Form_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ServerStop();
+            // closed -> not by user clicking close button [x] form
+            if ((e.CloseReason == CloseReason.UserClosing) && (mustClose == true))
+            {
+                ServerStop(); 
+
+                return;
+            }
+
+            // just hide the form
+            e.Cancel = true;
+            Hide();
         }
 
 
@@ -150,6 +168,63 @@ namespace HTTPserverHere
                     break;
 
             }
+        }
+
+
+        //
+        //
+        //
+        private void ShowWindow()
+        {
+            if (Visible == false)
+            {
+                WindowState = FormWindowState.Normal;
+                Show();
+            }
+        }
+
+
+        //
+        //
+        //
+        private void Main_Form_Shown(object sender, EventArgs e)
+        {
+            // hide form at start of program
+            Hide();
+
+            //
+            if (server != null)
+            {
+                notifyIcon.BalloonTipTitle = string.Format("Server started on localhost:{0}", ServerPort_textBox.Text);
+                notifyIcon.ShowBalloonTip(1500);
+            }
+        }
+
+
+        //
+        //
+        //
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (Visible == false)
+            {
+                Console.WriteLine("notifyIcon_MouseDoubleClick");
+                ShowWindow();
+            }
+            else
+            {
+                Hide();
+            }
+        }
+
+
+        //
+        //
+        //
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mustClose = true;
+            Close();
         }
     }
 }
