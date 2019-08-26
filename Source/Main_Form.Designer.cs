@@ -49,6 +49,7 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.tray_contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tray_contextMenuStrip.SuspendLayout();
@@ -196,9 +197,11 @@
             // tray_contextMenuStrip
             // 
             this.tray_contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openInBrowserToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.tray_contextMenuStrip.Name = "tray_contextMenuStrip";
-            this.tray_contextMenuStrip.Size = new System.Drawing.Size(104, 26);
+            this.tray_contextMenuStrip.Size = new System.Drawing.Size(162, 70);
+            this.tray_contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.tray_contextMenuStrip_Opening);
             // 
             // closeToolStripMenuItem
             // 
@@ -206,6 +209,13 @@
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // openInBrowserToolStripMenuItem
+            // 
+            this.openInBrowserToolStripMenuItem.Name = "openInBrowserToolStripMenuItem";
+            this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.openInBrowserToolStripMenuItem.Text = "Open in browser";
+            this.openInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openInBrowserToolStripMenuItem_Click);
             // 
             // Main_Form
             // 
@@ -259,6 +269,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip tray_contextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openInBrowserToolStripMenuItem;
     }
 }
 

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace HTTPserverHere
 {
@@ -225,6 +226,24 @@ namespace HTTPserverHere
         {
             mustClose = true;
             Close();
+        }
+
+
+        //
+        //
+        //
+        private void openInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(string.Format("http://localhost:{0}", ServerPort_textBox.Text));
+        }
+
+
+        //
+        //
+        //
+        private void tray_contextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            openInBrowserToolStripMenuItem.Enabled = server != null;
         }
     }
 }
