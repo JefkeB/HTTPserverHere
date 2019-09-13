@@ -179,8 +179,9 @@ namespace HTTPserverHere
         {
             if (Visible == false)
             {
-                WindowState = FormWindowState.Normal;
+                WindowState = FormWindowState.Minimized;
                 Show();
+                WindowState = FormWindowState.Normal;
             }
         }
 
